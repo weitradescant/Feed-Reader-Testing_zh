@@ -16,7 +16,7 @@ $(function() {
          * 比如你把 app.js 里面的 allFeeds 变量变成一个空的数组然后刷新
          * 页面看看会发生什么。
         */
-        it('are defined', function() {
+        it('are defined',function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
@@ -33,7 +33,7 @@ $(function() {
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
          */
-         it('has name',function(){
+        it('has name',function(){
             for (var i =0; i < allFeeds.length; i++ ) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
@@ -50,9 +50,9 @@ $(function() {
          * 写一个测试用例保证菜单元素默认是隐藏的。你需要分析 html 和 css
          * 来搞清楚我们是怎么实现隐藏/展示菜单元素的。
          */
-         it('menu is hidden',function() {
+        it('menu is hidden',function() {
             expect($body.hasClass('menu-hidden')).toBe(true);
-         })
+        })
 
         /* TODO:
         * 写一个测试用例保证当菜单图标被点击的时候菜单会切换可见状态。这个
@@ -64,24 +64,12 @@ $(function() {
             expect($body.hasClass('menu-hidden')).not.toBe(true);
             $icon.trigger('click');
             expect($body.hasClass('menu-hidden')).toBe(true);
-         });
-        
-
-
-
-
-
-
-
-
-
+        });
     })
-
-
-         
+      
 
     /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
-
+    describe('Initial Entries',function() {
         /* TODO:
          * 写一个测试保证 loadFeed 函数被调用而且工作正常，即在 .feed 容器元素
          * 里面至少有一个 .entry 的元素。
@@ -89,11 +77,42 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
+        var $feed = $('.feed');
+        beforeEach(function(done) {
+            loadFeed(0,function() {
+                done();
+            });
+        })
+        it('loadFeed work right',function(done) {
+            expect($feed.children().find('.entry').length).not.toBe(0);
+            done();
+        });
+    })
+
 
     /* TODO: 写一个叫做 "New Feed Selection" 的测试用例 */
-
+    describe('New Feed Selection',function() {
         /* TODO:
          * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
          * 记住，loadFeed() 函数是异步的。
          */
+        var $feed = $('.feed');
+        var key1;
+        var key2;
+        beforeEach(function(done) {
+            loadFeed(0,function() {
+                done();
+            });
+            key1 = $feed.children().find('h2').eq(0);//加载第一个源获得第一个h2的值
+            loadFeed(1,function() {
+                done();
+            });
+            key2 = $feed.children().find('h2').eq(0);//加载第二个源获得第一个h2的值
+        })
+        it('loadFeed will change',function(done) {
+            expect(key1 == key2).not.toBe(true);//比较两个h2是否不同
+            done();
+        });
+    })
+        
 }());

@@ -20,31 +20,57 @@ $(function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
-
-
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
-
+        it('has href',function() {
+            for (var i =0; i < allFeeds.length; i++ ) {
+                expect(allFeeds[i].url).toBeDefined();
+                expect(allFeeds[i].url.length).not.toBe(0);
+            };
+        });
 
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
          */
+         it('has name',function(){
+            for (var i =0; i < allFeeds.length; i++ ) {
+                expect(allFeeds[i].name).toBeDefined();
+                expect(allFeeds[i].name.length).not.toBe(0);
+            };
+        });
     });
 
 
     /* TODO: 写一个叫做 "The menu" 的测试用例 */
-
+    describe('The menu',function() {
         /* TODO:
          * 写一个测试用例保证菜单元素默认是隐藏的。你需要分析 html 和 css
          * 来搞清楚我们是怎么实现隐藏/展示菜单元素的。
          */
+         it('menu is hidden',function() {
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+         })
+         
+        /* TODO:
+        * 写一个测试用例保证当菜单图标被点击的时候菜单会切换可见状态。这个
+        * 测试应该包含两个 expectation ： 党点击图标的时候菜单是否显示，
+        * 再次点击的时候是否隐藏。
+        */
 
-         /* TODO:
-          * 写一个测试用例保证当菜单图标被点击的时候菜单会切换可见状态。这个
-          * 测试应该包含两个 expectation ： 党点击图标的时候菜单是否显示，
-          * 再次点击的时候是否隐藏。
-          */
+
+
+
+
+
+
+
+
+
+    })
+
+
+         
 
     /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
 

@@ -5,7 +5,7 @@
  */
 
 // 所有的名字和链接都是真实可用的
-/*var allFeeds = [
+var allFeeds = [
     {
         name: '优达学城 Blog',
         url: 'http://blog.udacity.com/feed'
@@ -19,7 +19,7 @@
         name: 'TechCrunch中国',
         url: 'http://techcrunch.cn/feed/'
     }
-];*/
+];
 
 /* 这个函数负责启动我们的应用，Google Feed Reader API 会被异步加载
  * 然后调用这个方法。

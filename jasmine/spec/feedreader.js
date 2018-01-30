@@ -16,6 +16,13 @@ $(function() {
          * 比如你把 app.js 里面的 allFeeds 变量变成一个空的数组然后刷新
          * 页面看看会发生什么。
         */
+        function feed(name) {
+            for (var i =0; i < allFeeds.length; i++ ) {
+                expect(allFeeds[i][name]).toBeDefined();
+                expect(allFeeds[i][name].length).not.toBe(0);
+            };
+        };
+        
         it('are defined',function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
@@ -24,20 +31,14 @@ $(function() {
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
         it('has href',function() {
-            for (var i =0; i < allFeeds.length; i++ ) {
-                expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url.length).not.toBe(0);
-            };
+            feed("url");
         });
 
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有名字字段而且不是空的。
          */
         it('has name',function(){
-            for (var i =0; i < allFeeds.length; i++ ) {
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name.length).not.toBe(0);
-            };
+            feed("name");
         });
     });
 
@@ -79,13 +80,10 @@ $(function() {
          */
         var $feed = $('.feed');
         beforeEach(function(done) {
-            loadFeed(0,function() {
-                done();
-            });
+            loadFeed(0,done);
         })
-        it('loadFeed work right',function(done) {
+        it('loadFeed work right',function() {
             expect($feed.children().find('.entry').length).not.toBe(0);
-            done();
         });
     })
 
@@ -100,19 +98,18 @@ $(function() {
         var key1;
         var key2;
         beforeEach(function(done) {
-            loadFeed(0,function() {
-                done();
-            });
-            key1 = $feed.children().find('h2').eq(0);//加载第一个源获得第一个h2的值
             loadFeed(1,function() {
                 done();
+                key2 = $feed.children().find('h2').eq(0);//加载第2个源获得第一个h2的值
+                loadFeed(0,function() {
+                    done();
+                    key1 = $feed.children().find('h2').eq(0);//加载第1个源获得第一个h2的值
+                });
             });
-            key2 = $feed.children().find('h2').eq(0);//加载第二个源获得第一个h2的值
         })
         it('loadFeed will change',function(done) {
             expect(key1 == key2).not.toBe(true);//比较两个h2是否不同
             done();
         });
     })
-        
 }());

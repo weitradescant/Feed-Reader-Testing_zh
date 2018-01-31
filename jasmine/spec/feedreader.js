@@ -97,13 +97,12 @@ $(function() {
         var $feed = $('.feed');
         var key1;
         var key2;
-        beforeEach(function(done) {
+        beforeEach(function(done) {//done为参数的话Jasmin不会运行其余的代码 直到调用done()
             loadFeed(1,function() {
-                done();
                 key2 = $feed.children().find('h2').eq(0);//加载第2个源获得第一个h2的值
-                loadFeed(0,function() {
-                    done();
+                loadFeed(0,function() {                    
                     key1 = $feed.children().find('h2').eq(0);//加载第1个源获得第一个h2的值
+                    done();//执行完后立刻执行109行it内内容
                 });
             });
         })
